@@ -11,7 +11,7 @@ import {
 } from "@apollo/client";
 
 const link = createHttpLink({
-  uri: "http://localhost:3000/graphql",
+  uri: "http://localhost:3001/graphql",
   credentials: "include",
 });
 
@@ -23,6 +23,7 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
