@@ -1,26 +1,13 @@
-import { useQuery, gql } from "@apollo/client";
+import { useBooksQuery } from "./graphql/generated";
 
-const FETCH_BOOKS = gql`
-  query {
-    books {
-      id
-      title
-    }
-  }
-`;
-
-interface Book {
-  id: string;
-  title: string;
-}
 
 function App() {
-  const { data: { books = [] } = {} } = useQuery(FETCH_BOOKS);
+  const { data: { books = [] } = {} } = useBooksQuery();
 
   return (
     <div>
-      {books.map((book: Book) => (
-        <div key={book.id}>{book.title}</div>
+      {books.map((book) => (
+        <div key={book.id}>ID:{book.id} / title:{book.title} / disc:{book.discription}</div>
       ))}
     </div>
   );

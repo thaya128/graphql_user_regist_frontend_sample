@@ -1,12 +1,9 @@
 overwrite: true
-schema: 'http://localhost:3001/graphql' // backのgraphqlURL
-documents: 'src/**/*.graphql'
+schema: "http://localhost:3001/graphql"
+documents: "src/graphql/**/*.ts"
 generates:
-  src/graphql/graphql.tsx:
+  src/graphql/generated.ts:
     plugins:
-      - 'typescript'
-      - 'typescript-operations'
-      - 'typescript-react-apollo'
-    config:
-      scalars:
-        ISO8601DateTime: string　// typescriptの型定義でエラーが起きるため追記
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
