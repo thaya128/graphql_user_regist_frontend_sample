@@ -1,3 +1,4 @@
+import "tailwindcss/tailwind.css";
 import {
   useBooksQuery,
   useCreateBookMutation,
@@ -13,9 +14,16 @@ function App() {
   const [deleteBook] = useDeleteBookMutation({ refetchQueries: ["books"] });
 
   return (
-    <div>
-      <input value={title} onChange={(e) => setTitle(e.target.value)} />
-      <input value={discription} onChange={(e) => setDiscription(e.target.value)} />
+    <div className="container mx-auto">
+      <h1 className="text-3xl font-bold underline">CRUD books</h1>
+      <label className="block">
+        <span className="text-gray-700">title</span>
+        <input className="form-input mt-1 block w-full" placeholder="book title" value={title} onChange={(e) => setTitle(e.target.value)} />
+      </label>
+      <label className="block">
+        <span className="text-gray-700">discription</span>
+        <textarea className="form-textarea mt-1 block w-full" placeholder="book discription" value={discription} onChange={(e) => setDiscription(e.target.value)} />
+      </label>
       <button
         onClick={() => {
           createBook({ variables: { params: { title: title, discription: discription } } });
@@ -25,25 +33,29 @@ function App() {
       >
         保存
       </button>
-      <table>
-        <tr>
-          <th>id</th>
-          <th>タイトル</th>
-          <th>説明</th>
-          <th>削除ボタン</th>
-        </tr>
+      <table className="border-collapse border border-slate-500 ...">
+        <thead>
+          <tr>
+            <th className="border border-slate-600 ...">id</th>
+            <th className="border border-slate-600 ...">タイトル</th>
+            <th className="border border-slate-600 ...">説明</th>
+            <th className="border border-slate-600 ...">削除ボタン</th>
+          </tr>
+        </thead>
+        <tbody>
         {books.map((book) => (
           <tr key={book.id}>
-            <td>{book.id}</td>
-            <td>{book.title}</td>
-            <td>{book.discription}</td>
-            <td>
+            <td className="border border-slate-700 ...">{book.id}</td>
+            <td className="border border-slate-700 ...">{book.title}</td>
+            <td className="border border-slate-700 ...">{book.discription}</td>
+            <td className="border border-slate-700 ...">
               <button onClick={() => deleteBook({ variables: { id: book.id } })}>
                 削除
               </button>
             </td>
           </tr>
         ))}
+        </tbody>
       </table>
     </div>
   );
