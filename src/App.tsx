@@ -34,9 +34,9 @@ function App() {
             </label>
           </div>
           <div className="md:w-2/3">
-            <input className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="book title" value={discription} onChange={(e) => setDiscription(e.target.value)} />
+            <textarea className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" placeholder="book title" value={discription} onChange={(e) => setDiscription(e.target.value)} />
           </div>
-        </div>  
+        </div>
         <div className="md:flex md:items-center">
           <div className="md:w-1/3"></div>
           <div className="md:w-2/3">
@@ -52,23 +52,26 @@ function App() {
           </div>
         </div>
       </form>
-      <table className="border-collapse border border-slate-500 ...">
+      <table className="table-auto">
+        <caption className ="caption-top">
+          登録した本一覧
+        </caption>
         <thead>
           <tr>
-            <th className="border border-slate-600 ...">id</th>
-            <th className="border border-slate-600 ...">タイトル</th>
-            <th className="border border-slate-600 ...">説明</th>
-            <th className="border border-slate-600 ...">削除ボタン</th>
+            <th className="border px-4 py-2">id</th>
+            <th className="border px-4 py-2">タイトル</th>
+            <th className="border px-4 py-2">説明</th>
+            <th className="border px-4 py-2">削除ボタン</th>
           </tr>
         </thead>
         <tbody>
         {books.map((book) => (
           <tr key={book.id}>
-            <td className="border border-slate-700 ...">{book.id}</td>
-            <td className="border border-slate-700 ...">{book.title}</td>
-            <td className="border border-slate-700 ...">{book.discription}</td>
-            <td className="border border-slate-700 ...">
-              <button onClick={() => deleteBook({ variables: { id: book.id } })}>
+            <td className="border px-4 py-2">{book.id}</td>
+            <td className="border px-4 py-2">{book.title}</td>
+            <td className="border px-4 py-2">{book.discription}</td>
+            <td className="border px-4 py-2">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={() => deleteBook({ variables: { id: book.id } })}>
                 削除
               </button>
             </td>
