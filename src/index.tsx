@@ -1,13 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import { setContext } from '@apollo/client/link/context';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { getStoredAuthToken } from './shared/utils/authToken'
+
 import {
   ApolloClient,
-  InMemoryCache,
   ApolloProvider,
   createHttpLink,
+  InMemoryCache,
 } from "@apollo/client";
 
 const link = createHttpLink({
@@ -15,9 +18,19 @@ const link = createHttpLink({
   credentials: "include",
 });
 
+const authLink = setContext((_, { headers }) => {
+  const token = getStoredAuthToken()
+  return {
+    headers: {
+      ...headers,
+      authorization: token || ''
+    }
+  }
+})
+
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: link,
+  link: authLink.concat(link),
 });
 
 const root = ReactDOM.createRoot(
@@ -27,7 +40,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-    <App />
+      <App />
     </ApolloProvider>
   </React.StrictMode>
 );
